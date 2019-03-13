@@ -9,7 +9,6 @@
     <ul>
         <li>1. Open <b>config/database.php</b> file and replace database credentials with yours</li>
         <li>2. Start install.php file (Example: <b>http://yoursite.com/install.php</b>) or <a href="install.php">Click Here</a></li>
-        <li>3. For replacing default credentials you can open <b>config/app.php</b> file and edit them</li>
     </ul>
 
     <h4>What and Where</h4>
