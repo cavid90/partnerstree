@@ -52,6 +52,11 @@ class BattleShip
         return $this->totalTargets;
     }
 
+    /**
+     * @param array $ships
+     * @return $this
+     * Set ships with sizes
+     */
     public function setShips($ships = [5,5])
     {
         self::$ships = $ships;
