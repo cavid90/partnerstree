@@ -3,7 +3,6 @@
 #### Installation
 1. Open config/database.php file and replace database credentials with yours
 2. Start install.php file (Example: http://yoursite.com/install.php)
-3. For replacing default credentials you can open config/app.php file and edit them
 
 #### What and Where
 1. Routes are placed in routes folder file by file: game, gamers etc
