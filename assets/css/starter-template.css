@@ -1,0 +1,21 @@
+body {
+    padding-top: 50px;
+}
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.bg-red {
+    background-color: #ff7763;
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.battle_area_square {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    height: 50px
+}
