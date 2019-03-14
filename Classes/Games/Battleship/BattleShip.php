@@ -165,15 +165,35 @@ class BattleShip
             switch($direction) {
                 case self::LEFT:
                     $newY = $y; $newX = $x - $i;
+                    if($shipSize == 5 && $i==4)
+                    {
+                        $newY = $y+1;
+                        $newX = $x-$i+1;
+                    }
                     break;
                 case self::RIGHT:
                     $newY = $y; $newX = $x + $i;
+                    if($shipSize == 5 && $i==4)
+                    {
+                        $newY = $y+1;
+                        $newX = $x+$i-1;
+                    }
                     break;
                 case self::UP:
                     $newY = $y - $i; $newX = $x;
+                    if($shipSize == 5 && $i==4)
+                    {
+                        $newX = $x+1;
+                        $newY = $y-$i+1;
+                    }
                     break;
                 case self::DOWN:
                     $newY = $y + $i; $newX = $x;
+                    if($shipSize == 5 && $i==4)
+                    {
+                        $newX = $x+1;
+                        $newY = $y+$i-1;
+                    }
             }
             $this->fillCoordinate($newY, $newX);
             $this->shipPositions[$shipId][] = array($newY, $newX);
@@ -188,7 +208,7 @@ class BattleShip
      * @return boolean     If the position equals 0, return true
      */
     public function isOccupiedCoordinate($y, $x) {
-        if($x < 0 || $x > self::$MAP_X - 1 || $y < 0 || $y > self::$MAP_Y - 1)
+        if($x < 0 || $x > self::$MAP_X - 2 || $y < 0 || $y > self::$MAP_Y - 2)
             return true;
         return 0 !== $this->map[$y][$x];
     }
@@ -230,8 +250,8 @@ class BattleShip
      */
     public function getRandomEmptyCoordinate() {
         while(true) {
-            $randX = rand(0, static::$MAP_X - 1);
-            $randY = rand(0, static::$MAP_Y - 1);
+            $randX = rand(0, static::$MAP_X - 2);
+            $randY = rand(0, static::$MAP_Y - 2);
             if($this->map[$randX][$randY] === 0) {
                 return array($randY, $randX);
             }
