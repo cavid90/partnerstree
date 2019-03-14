@@ -7,5 +7,5 @@
  */
 
 return [
-    'show_target_ships' => 0 // show target ships on html battle board
+    'show_target_ships' => 1 // show target ships on html battle board
 ];
