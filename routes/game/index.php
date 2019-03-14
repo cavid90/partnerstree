@@ -24,6 +24,7 @@
                 <h5>Hello, <b><?=$gamer['fullname']?></b>. You have <b class="text-success"><?=$gamer['wins']?></b> wins and <b class="text-danger"><?=$gamer['fails']?></b> fails of battles</h5>
                 <a class="btn btn-danger" href="?route=gamers/logout">Logout</a>
                 <a class="btn btn-primary" href="?route=game/top">Top 10</a>
+                <a class="btn btn-primary" href="?route=gamers/my_games">My finished games</a>
                 <hr>
                 <form class="start_game" method="POST" action="?route=game/start_game">
                     <div><button class="start_game_btn btn btn-success">Click To Start</button></div>

@@ -1,13 +1,15 @@
 <?php
-ini_set("display_errors", 1);
+ini_set("display_errors", 0);
 ob_start();
-$session_timeout = 86400;
+define('BASE_PATH', realpath(__DIR__.''));
+require_once 'functions.php';
+$session_timeout = config('session_lifetime');
 // Set the max lifetime of session
 ini_set("session.gc_maxlifetime", $session_timeout);
 // Set the session cookie to timout
 ini_set("session.cookie_lifetime", $session_timeout);
+//start session
 session_start();
-define('BASE_PATH', realpath(__DIR__.''));
 #-----------------------------------
 # Autoload classes
 #----------------------------------
@@ -20,5 +22,4 @@ if (file_exists(BASE_PATH.'/vendor/autoload.php')) {
     exit;
 }
 
-require_once 'functions.php';
 $db = \Classes\Db::getInstance();

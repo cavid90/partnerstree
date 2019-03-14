@@ -7,6 +7,7 @@
  */
 
 return [
+    'session_lifetime'  => 2*86400, // session lifetime in seconds
     'show_target_ships' => 1, // show target ships on html battle board
     'map_x'             => 10, // size of map by X coordinate
     'map_y'             => 10, // size of map by Y coordinate
