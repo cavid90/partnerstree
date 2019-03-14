@@ -26,6 +26,7 @@ class BattleShip
     const VERTICAL = 'vertical';
     const UP = 'up';
     const DOWN = 'down';
+
     /**
      * Generate a new map, calculate the targets on the map
      * and populate the map with targets
@@ -37,6 +38,7 @@ class BattleShip
             ->generateMap()
             ->populateMap();
     }
+
     /**
      * Map::map accessor
      * @return array The map matrix
@@ -44,6 +46,7 @@ class BattleShip
     public function getMatrix() {
         return $this->map;
     }
+
     /**
      * Map::totalTargets accessor
      * @return integer Amount of remaining targets on the map
@@ -140,6 +143,7 @@ class BattleShip
         }
         return true;
     }
+
     /**
      * Fills an array of positions based on ship size, starting coordinate
      * and direction
@@ -214,6 +218,7 @@ class BattleShip
     public function getRandomOrientation() {
         return self::$orientation[rand(0,1)];
     }
+
     /**
      * Coorindate generator
      * @return array  X/Y coordinate container of a spot that equals 0
@@ -261,6 +266,7 @@ class BattleShip
             return true;
         return $newState;
     }
+
     /**
      * Checks if a ship has sank
      * @param  integer  $y The Y coordinate
@@ -283,6 +289,7 @@ class BattleShip
         }
         return false;
     }
+
     /**
      * Map::$shots accessor
      * @return integer Amount of shots spent in the game
