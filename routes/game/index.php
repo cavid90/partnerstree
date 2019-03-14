@@ -33,20 +33,28 @@
             </div>
             <br>
             <form class="row battle_area hidden" method="POST" action="?route=game/save">
-                <div class="col-lg-4 col-md-4 col-sm-4 text-center">
+                <div class="col-lg-6 col-md-6 col-sm-12 text-center">
                     <h4 class="hit_counter"><b>Hit counter:</b> <span class="hit_number text-success">0</span></h4>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 text-center">
                     <h4 class="miss_counter"><b>Miss counter:</b> <span class="miss_number text-danger">0</span></h4>
+                    <br>
+                    <h4><b>Maximum allowed misses:</b> <span class="text-info"><?=config('max_misses')?></span></h4>
                 </div>
-            <?php foreach ($matrix as $mkey => $rows): ?>
-                <div class="col-md-10 col-sm-10 col-xs-10 col-md-offset-1 col-sm-offset-1 col-xs-offset-1" style="height: 50px;">
-                    <?php foreach ($rows as $key=>$value): ?>
-                        <div class="col-md-1 col-sm-1 col-xs-1 battle_area_square <?= ($value) == 1 && config('show_target_ships') == 1 ? 'bg-danger':''?>" data-row="<?=$mkey?>" data-column="<?=$key?>" id="bas_<?=$mkey.'_'.$key?>">
-                        </div>
-                    <?php endforeach;?>
+                <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+                    <table class="center-block text-danger">
+                        <tbody>
+                        <?php foreach ($matrix as $mkey => $rows): ?>
+                            <tr>
+                                <?php foreach ($rows as $key=>$value): ?>
+                                    <td class="col-md-1 col-sm-1 col-xs-1 battle_area_square <?= ($value) == 1 && config('show_target_ships') == 1 ? 'bg-danger':''?>" data-row="<?=$mkey?>" data-column="<?=$key?>" id="bas_<?=$mkey.'_'.$key?>"></td>
+                                <?php endforeach;?>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
-            <?php endforeach; ?>
+
+                <div class="clearfix"></div>
+
             </form>
 
             <?php else: ?>

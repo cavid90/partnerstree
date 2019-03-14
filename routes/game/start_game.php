@@ -4,8 +4,9 @@
  * This will help to make shot withour refreshing page
  */
 if(isset($_SESSION['game_matrix'])) {
-    $data['game_matrix'] = $_SESSION['game_matrix'];
-    $data['total_targets'] = $_SESSION['total_targets'];
+    $data['game_matrix']    = $_SESSION['game_matrix'];
+    $data['total_targets']  = $_SESSION['total_targets'];
+    $data['max_misses']     = config('max_misses');
     http_response_code(200);
 }
 else

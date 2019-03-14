@@ -17,5 +17,5 @@ body {
 .battle_area_square {
     cursor: pointer;
     border: 1px solid #ccc;
-    height: 50px
+    height: 35px
 }

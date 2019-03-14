@@ -39,6 +39,7 @@ $(document).ready(function () {
     var shipSquares = 0;
     var hits = 0;
     var misses = 0;
+    var max_misses = 0;
 
     /**
      * Start game
@@ -54,6 +55,7 @@ $(document).ready(function () {
                 $this.remove();
                 shipPlacement = response.game_matrix;
                 shipSquares = response.total_targets;
+                max_misses = response.max_misses;
 
             },
             error: function (response) {
@@ -94,12 +96,12 @@ $(document).ready(function () {
         }
 
         if (hits === shipSquares) {
-            alert('You sunk all the ships!');
+            alert('You sunk all the ships! You win :)');
             saveGame(1)
         }
 
-        if (misses === 40) {
-            alert('40 misses ! You failed');
+        if (misses === max_misses) {
+            alert('You have missed ' + max_misses+' times ! Game over');
             saveGame(0)
         }
 
