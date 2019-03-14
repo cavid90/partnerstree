@@ -107,12 +107,24 @@ class BattleShip
 
     /**
      * @param $shipSize
+     * @return int
+     * If ship size is less than 5 it will minus 1 from coordinates else it will minus 2. If it is an L ship
+     * then we need to minus 2 otherwise ship will go out of board.
+     */
+    public function minusFromCoordinate($shipSize)
+    {
+        return ($shipSize <= 4) ? 1 : 2;
+    }
+
+    /**
+     * @param $shipSize
      * @return bool
      * Place ship on board matrix and return true if placed
      */
     public function addToMap($shipSize) {
         while(true) {
-            $position = $this->getRandomEmptyCoordinate();
+            $minusFromCoorfinate = $this->minusFromCoordinate($shipSize);
+            $position = $this->getRandomEmptyCoordinate($minusFromCoorfinate);
             $orientation = $this->getRandomOrientation();
             $direction = $this->getRandomDirection($orientation);
             if($this->canPositionShipAt($shipSize, $position, $direction)) {
@@ -131,19 +143,20 @@ class BattleShip
      */
     public function canPositionShipAt($shipSize, Array $position, $direction) {
         list($y, $x) = $position;
+        $minusFromCoordinate = $this->minusFromCoordinate($shipSize);
         for($i = 0; $i < $shipSize; $i++) {
             switch($direction) {
                 case self::LEFT:
-                    if($this->isOccupiedCoordinate($y, $x - $i)) return false;
+                    if($this->isOccupiedCoordinate($y, $x - $i, $minusFromCoordinate)) return false;
                     break;
                 case self::RIGHT:
-                    if($this->isOccupiedCoordinate($y, $x + $i)) return false;
+                    if($this->isOccupiedCoordinate($y, $x + $i, $minusFromCoordinate)) return false;
                     break;
                 case self::UP:
-                    if($this->isOccupiedCoordinate($y - $i, $x)) return false;
+                    if($this->isOccupiedCoordinate($y - $i, $x, $minusFromCoordinate)) return false;
                     break;
                 case self::DOWN:
-                    if($this->isOccupiedCoordinate($y + $i, $x)) return false;
+                    if($this->isOccupiedCoordinate($y + $i, $x, $minusFromCoordinate)) return false;
             }
         }
         return true;
@@ -165,7 +178,7 @@ class BattleShip
             switch($direction) {
                 case self::LEFT:
                     $newY = $y; $newX = $x - $i;
-                    if($shipSize == 5 && $i==4)
+                    if($shipSize >= 5 && $i==4)
                     {
                         $newY = $y+1;
                         $newX = $x-$i+1;
@@ -173,7 +186,7 @@ class BattleShip
                     break;
                 case self::RIGHT:
                     $newY = $y; $newX = $x + $i;
-                    if($shipSize == 5 && $i==4)
+                    if($shipSize >= 5 && $i==4)
                     {
                         $newY = $y+1;
                         $newX = $x+$i-1;
@@ -181,7 +194,7 @@ class BattleShip
                     break;
                 case self::UP:
                     $newY = $y - $i; $newX = $x;
-                    if($shipSize == 5 && $i==4)
+                    if($shipSize >= 5 && $i==4)
                     {
                         $newX = $x+1;
                         $newY = $y-$i+1;
@@ -189,7 +202,7 @@ class BattleShip
                     break;
                 case self::DOWN:
                     $newY = $y + $i; $newX = $x;
-                    if($shipSize == 5 && $i==4)
+                    if($shipSize >= 5 && $i==4)
                     {
                         $newX = $x+1;
                         $newY = $y+$i-1;
@@ -207,8 +220,8 @@ class BattleShip
      * @param  integer  $x The X Coordinate
      * @return boolean     If the position equals 0, return true
      */
-    public function isOccupiedCoordinate($y, $x) {
-        if($x < 0 || $x > self::$MAP_X - 2 || $y < 0 || $y > self::$MAP_Y - 2)
+    public function isOccupiedCoordinate($y, $x, $minus) {
+        if($x < 0 || $x > self::$MAP_X - $minus || $y < 0 || $y > self::$MAP_Y - $minus)
             return true;
         return 0 !== $this->map[$y][$x];
     }
@@ -248,10 +261,10 @@ class BattleShip
      * Coorindate generator
      * @return array  X/Y coordinate container of a spot that equals 0
      */
-    public function getRandomEmptyCoordinate() {
+    public function getRandomEmptyCoordinate($minus) {
         while(true) {
-            $randX = rand(0, static::$MAP_X - 2);
-            $randY = rand(0, static::$MAP_Y - 2);
+            $randX = rand(0, static::$MAP_X - $minus);
+            $randY = rand(0, static::$MAP_Y - $minus);
             if($this->map[$randX][$randY] === 0) {
                 return array($randY, $randX);
             }
