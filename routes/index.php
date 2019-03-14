@@ -9,7 +9,7 @@
     <ul>
         <li>1. Open <b>config/database.php</b> file and replace database credentials with yours</li>
         <li>2. Start install.php file (Example: <b>http://yoursite.com/install.php</b>) or <a href="install.php">Click Here</a></li>
-        <li>3. By default target ships colors are visible. Just set show_target_ships to 0 in config/app.php file</li>
+        <li>3. By default target ships colors are visible. Site configurations are placed in config/app.php file. You can change lenght og X and Y coordinates, define maximum number of misses etc in this file.</li>
     </ul>
 
     <h4>What and Where</h4>
