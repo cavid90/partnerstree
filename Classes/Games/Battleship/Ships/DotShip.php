@@ -6,7 +6,7 @@ namespace Classes\Games\Battleship\Ships;
  * Date: 14.03.2019
  * Time: 17:43
  */
-class DotShip extends Ship
+class DotShip extends ShipBuilder
 {
     const SIZE = 1;
 }

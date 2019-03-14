@@ -6,7 +6,7 @@ namespace Classes\Games\Battleship\Ships;
  * Date: 14.03.2019
  * Time: 17:43
  */
-class Ship
+class ShipBuilder
 {
     public static function getSize()
     {
