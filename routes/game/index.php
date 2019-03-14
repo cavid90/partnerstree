@@ -5,12 +5,17 @@
         <div class="row">
             <br>
             <?php
+
             if(isset($_SESSION['gamer'])):
                 $gamer = $_SESSION['gamer']; // set gamer to session
                 $_SESSION['game_start'] = date('Y-m-d H:i:s'); // set start time of game
 
                 // Create game board and place ships
-                $game = new \Classes\Games\BattleShip([5,4,1,1]);
+                $LShip =  \Classes\Games\Battleship\Ships\LShip::getSize();
+                $IShip =  \Classes\Games\Battleship\Ships\IShip::getSize();
+                $DotShip =  \Classes\Games\Battleship\Ships\DotShip::getSize();
+
+                $game = new \Classes\Games\Battleship\BattleShip([$LShip,$IShip,$DotShip,$DotShip]);
                 $matrix = $game->getMatrix();
                 $_SESSION['game_matrix'] = $matrix;
                 $_SESSION['total_targets'] = $game->getTargetCount();

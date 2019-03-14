@@ -1,5 +1,5 @@
 <?php
-namespace Classes\Games;
+namespace Classes\Games\Battleship;
 
 /**
  * Created by PhpStorm.
@@ -18,8 +18,8 @@ class BattleShip
     static $orientation = array('horizontal', 'vertical');
     static $verticalDirection = array('left', 'right');
     static $horizontalDirection = array('up', 'down');
-    const MAP_X = 10;
-    const MAP_Y = 10;
+    static $MAP_X;
+    static $MAP_Y;
     const LEFT = 'left';
     const RIGHT = 'right';
     const HORIZONTAL = 'horizontal';
@@ -31,7 +31,12 @@ class BattleShip
      * Generate a new map, calculate the targets on the map
      * and populate the map with targets
      */
-    public function __construct($ships = array()) {
+    public function __construct($ships = []) {
+
+        // Set value of X and Y coordinates
+        static::$MAP_X = config('map_x');
+        static::$MAP_Y = config('map_y');
+
         $this
             ->setShips($ships)
             ->calculateMaxTargets()
@@ -60,7 +65,7 @@ class BattleShip
      * @return $this
      * Set ships with sizes
      */
-    public function setShips($ships = [5,5])
+    public function setShips($ships = [])
     {
         self::$ships = $ships;
         return $this;
@@ -81,8 +86,8 @@ class BattleShip
      * Generate 10x10 board matrix
      */
     public function generateMap() {
-        for($y = 0; $y < static::MAP_Y; $y++) {
-            for($x = 0; $x < static::MAP_X; $x++) {
+        for($y = 0; $y < static::$MAP_Y; $y++) {
+            for($x = 0; $x < static::$MAP_X; $x++) {
                 $this->map[$y][$x] = 0;
             }
         }
@@ -183,7 +188,7 @@ class BattleShip
      * @return boolean     If the position equals 0, return true
      */
     public function isOccupiedCoordinate($y, $x) {
-        if($x < 0 || $x > self::MAP_X - 1 || $y < 0 || $y > self::MAP_Y - 1)
+        if($x < 0 || $x > self::$MAP_X - 1 || $y < 0 || $y > self::$MAP_Y - 1)
             return true;
         return 0 !== $this->map[$y][$x];
     }
@@ -225,8 +230,8 @@ class BattleShip
      */
     public function getRandomEmptyCoordinate() {
         while(true) {
-            $randX = rand(0, static::MAP_X - 1);
-            $randY = rand(0, static::MAP_Y - 1);
+            $randX = rand(0, static::$MAP_X - 1);
+            $randY = rand(0, static::$MAP_Y - 1);
             if($this->map[$randX][$randY] === 0) {
                 return array($randY, $randX);
             }
