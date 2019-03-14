@@ -1,6 +1,6 @@
 <div class="container">
     <div class="starter-template">
-        <a href="?route=game/index" class="btn btn-info">Begin game</a>
+        <a href="?route=game/index" class="btn btn-info">Go to game</a>
     </div>
     <hr>
     <h3>Battleship game</h3>
@@ -9,6 +9,7 @@
     <ul>
         <li>1. Open <b>config/database.php</b> file and replace database credentials with yours</li>
         <li>2. Start install.php file (Example: <b>http://yoursite.com/install.php</b>) or <a href="install.php">Click Here</a></li>
+        <li>3. By default target ships colors are visible. Just remove < ? = ($value) == 1 ? 'bg-danger':'' ? > code from routes/game/index.php file</li>
     </ul>
 
     <h4>What and Where</h4>

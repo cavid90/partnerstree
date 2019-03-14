@@ -38,7 +38,6 @@
                 <div class="col-md-10 col-sm-10 col-xs-10 col-md-offset-1 col-sm-offset-1 col-xs-offset-1" style="height: 50px;">
                     <?php foreach ($rows as $key=>$value): ?>
                         <div class="col-md-1 col-sm-1 col-xs-1 battle_area_square <?= ($value) == 1 ? 'bg-danger':''?>" data-row="<?=$mkey?>" data-column="<?=$key?>" id="bas_<?=$mkey.'_'.$key?>">
-
                         </div>
                     <?php endforeach;?>
                 </div>
