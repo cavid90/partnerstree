@@ -33,13 +33,13 @@
             </div>
             <br>
             <form class="row battle_area hidden" method="POST" action="?route=game/save">
-                <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+                <div class="col-lg-4 col-md-4 col-sm-12 text-center">
                     <h4 class="hit_counter"><b>Hit counter:</b> <span class="hit_number text-success">0</span></h4>
                     <h4 class="miss_counter"><b>Miss counter:</b> <span class="miss_number text-danger">0</span></h4>
                     <br>
                     <h4><b>Maximum allowed misses:</b> <span class="text-info"><?=config('max_misses')?></span></h4>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+                <div class="col-lg-8 col-md-8 col-sm-12 text-center">
                     <table class="center-block text-danger">
                         <tbody>
                         <?php foreach ($matrix as $mkey => $rows): ?>
