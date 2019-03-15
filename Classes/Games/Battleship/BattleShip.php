@@ -15,6 +15,7 @@ class BattleShip
     protected $shipPositions = array();
 
     static $ships = [];
+    static $spaces = [];
     static $orientation = array('horizontal', 'vertical');
     static $verticalDirection = array('left', 'right');
     static $horizontalDirection = array('up', 'down');
@@ -174,6 +175,7 @@ class BattleShip
     public function positionShipAt($shipSize, Array $position, $direction) {
         list($y, $x) = $position;
         $shipId = sizeof($this->shipPositions);
+
         for($i = 0; $i < $shipSize; $i++) {
             switch($direction) {
                 case self::LEFT:
@@ -207,8 +209,10 @@ class BattleShip
                         $newX = $x+1;
                         $newY = $y+$i-1;
                     }
+
             }
             $this->fillCoordinate($newY, $newX);
+            $this->fillSpaces($newY, $newX);
             $this->shipPositions[$shipId][] = array($newY, $newX);
         }
         return true;
@@ -221,7 +225,21 @@ class BattleShip
      * @return boolean     If the position equals 0, return true
      */
     public function isOccupiedCoordinate($y, $x, $minus) {
-        if($x < 0 || $x > self::$MAP_X - $minus || $y < 0 || $y > self::$MAP_Y - $minus)
+        if(($x < 0 || $x > self::$MAP_X - $minus || $y < 0 || $y > self::$MAP_Y - $minus) &&
+            (
+                isset(self::$spaces[$y][$x])
+                || isset(self::$spaces[$y][$x-1])
+                || isset(self::$spaces[$y][$x+1])
+
+                || isset(self::$spaces[$y-1][$x])
+                || isset(self::$spaces[$y-1][$x+1])
+                || isset(self::$spaces[$y-1][$x-1])
+
+                || isset(self::$spaces[$y+1][$x])
+                || isset(self::$spaces[$y+1][$x-1])
+                || isset(self::$spaces[$y+1][$x+1])
+            )
+        )
             return true;
         return 0 !== $this->map[$y][$x];
     }
@@ -234,6 +252,27 @@ class BattleShip
      */
     public function fillCoordinate($y, $x) {
         return $this->map[$y][$x] = 1;
+    }
+
+    /**
+     * @param $y
+     * @param $x
+     * Fill spaces around a ship
+     */
+    public function fillSpaces($y, $x) {
+        self::$spaces[$y][$x] = 3;
+        self::$spaces[$y][$x-1] = 3;
+        self::$spaces[$y][$x+1] = 3;
+
+        self::$spaces[$y-1][$x] = 3;
+        self::$spaces[$y-1][$x-1] = 3;
+        self::$spaces[$y-1][$x+1] = 3;
+
+        self::$spaces[$y+1][$x] = 3;
+        self::$spaces[$y+1][$x-1] = 3;
+        self::$spaces[$y+1][$x+1] = 3;
+
+
     }
 
     /**
@@ -263,9 +302,25 @@ class BattleShip
      */
     public function getRandomEmptyCoordinate($minus) {
         while(true) {
+
             $randX = rand(0, static::$MAP_X - $minus);
             $randY = rand(0, static::$MAP_Y - $minus);
-            if($this->map[$randX][$randY] === 0) {
+
+            if(
+                $this->map[$randX][$randY] === 0
+                && !isset(self::$spaces[$randY][$randX])
+                && !isset(self::$spaces[$randY][$randX-1])
+                && !isset(self::$spaces[$randY][$randX+1])
+
+                && !isset(self::$spaces[$randY-1][$randX])
+                && !isset(self::$spaces[$randY-1][$randX+1])
+                && !isset(self::$spaces[$randY-1][$randX-1])
+
+                && !isset(self::$spaces[$randY+1][$randX])
+                && !isset(self::$spaces[$randY+1][$randX-1])
+                && !isset(self::$spaces[$randY+1][$randX+1])
+            )
+            {
                 return array($randY, $randX);
             }
         }
